@@ -2,6 +2,7 @@
   "name": "vue.eventbus",
   "version": "0.0.0",
   "description": "Event Bus for Vue.js Components",
+  "main": "src/main.js",
   "author": "MohannadNaj <me@mohannad.io>",
   "private": true,
   "scripts": {
