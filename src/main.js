@@ -1,6 +1,5 @@
-import EventBus from './EventBus';
+const EventBus = require('./EventBus').default;
 
 const eventBus = new EventBus();
 
-export default eventBus;
-
+module.exports= eventBus;

@@ -1,11 +1,17 @@
 export default class {
-  constructor() {
-    this.init();
+  constructor(VueInstance = null) {
+    if(VueInstance)
+      Vue = VueInstance
+
+    if(! VueInstance && Vue == null)
+      var Vue = require('vue')
+
+    this.init(Vue);
     return this.vue;
   }
 
-  init() {
-    this.vue = new Vue({ methods: this.methods, data: this.data });
+  init(VueInstance) {
+    this.vue = new VueInstance({ methods: this.methods, data: this.data });
   }
 
 
@@ -68,6 +74,34 @@ export default class {
         this.listenHistory = [];
         this.fireHistory = [];
       },
+      expectEvent(eventName, eventStatus = 'Fire', expectPresent = true) {
+          var expectedEvent = eventName
+
+          var eventInHistory = this[`get${eventStatus}History`]().filter(
+            e => e == expectedEvent
+          )
+
+          if (expectPresent) return this.expectEqual(expectedEvent, eventInHistory[0])
+
+          return this.expectEqual(eventInHistory, [])
+      },
+      notExpectEvent(eventName, eventStatus = 'Fire') {
+        return this.expectEvent(eventName, eventStatus, false)
+      },
+      expectListenEvent(eventName) {
+        return this.expectEvent(eventName, 'Listen')
+      },
+      expectEqual(actual, _expectation) {
+        if(expect == null)
+          throw "can't find expect method"
+
+        let expectFn = expect(actual)
+
+        if(expectFn.to != null && expectFn.to.equal != null)
+          return expectFn.to.equal(_expectation)
+
+        expectFn.toEqual(_expectation)
+      }
     };
   }
 }

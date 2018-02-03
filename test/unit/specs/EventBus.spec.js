@@ -77,4 +77,28 @@ describe('vue.eventbus', () => {
     expect(vm.getFireHistory()).toContain('test1');
     expect(vm.getFireHistory().length).toBe(3);
   });
+
+  it('has working testing methods', done => {
+    jest.spyOn(EventBus, 'expectEqual')
+    EventBus.listen('hi', () => {done()})
+    EventBus.expectListenEvent('hi')
+    EventBus.fire('hi2')
+    EventBus.expectEvent('hi2')
+
+    expect(EventBus.expectEqual).toHaveBeenCalledTimes(2)
+    EventBus.fire('hi')
+  })
+
+  it('testing methods looks for the appropriate matchers', done => {
+    let tmpExpect = expect;
+    let jestFn = jest.fn(done)
+
+    expect = () => {return {to: {equal: jestFn}}}
+    EventBus.expectEvent('hi2')
+
+    expect = tmpExpect    
+    expect(jestFn)
+    .toHaveBeenCalledTimes(1)
+
+  });
 });
