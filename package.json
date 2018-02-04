@@ -1,12 +1,12 @@
 {
-  "name": "vue.eventbus",
+  "name": "vue-eventbus2",
   "version": "1.0.0",
   "description": "Event Bus for Vue.js Components",
   "main": "src/main.js",
   "bugs": {
-    "url": "https://github.com/MohannadNaj/vue.eventbus/issues"
+    "url": "https://github.com/MohannadNaj/vue-eventbus2/issues"
   },
-  "homepage": "https://github.com/MohannadNaj/vue.eventbus#readme",
+  "homepage": "https://github.com/MohannadNaj/vue-eventbus2#readme",
   "author": "MohannadNaj <me@mohannad.io>",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

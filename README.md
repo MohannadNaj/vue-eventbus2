@@ -1,18 +1,18 @@
-# Vue.eventbus
+# vue-eventbus2
 
 > Event Bus for Vue.js Components
 
-[![npm version](https://badge.fury.io/js/vue.eventbus.svg)](https://www.npmjs.com/package/vue.eventbus)
-[![npm downloads](https://img.shields.io/npm/dt/vue.eventbus.svg)](https://www.npmjs.com/package/vue.eventbus)
-[![Build Status](https://travis-ci.org/MohannadNaj/vue.eventbus.svg?branch=master)](https://travis-ci.org/MohannadNaj/vue.eventbus)
-[![Coverage Status](https://coveralls.io/repos/github/MohannadNaj/vue.eventbus/badge.svg?branch=master)](https://coveralls.io/github/MohannadNaj/vue.eventbus?branch=master)
+[![npm version](https://badge.fury.io/js/vue-eventbus2.svg)](https://www.npmjs.com/package/vue-eventbus2)
+[![npm downloads](https://img.shields.io/npm/dt/vue-eventbus2.svg)](https://www.npmjs.com/package/vue-eventbus2)
+[![Build Status](https://travis-ci.org/MohannadNaj/vue-eventbus2.svg?branch=master)](https://travis-ci.org/MohannadNaj/vue-eventbus2)
+[![Coverage Status](https://coveralls.io/repos/github/MohannadNaj/vue-eventbus2/badge.svg?branch=master)](https://coveralls.io/github/MohannadNaj/vue-eventbus2?branch=master)
 
 ## Installation
 
 ``` shell
-npm install vue.eventbus --save
+npm install vue-eventbus2 --save
 # or
-yarn add vue.eventbus --save
+yarn add vue-eventbus2 --save
 ```
 
 
@@ -20,7 +20,7 @@ yarn add vue.eventbus --save
 
 The preferred usage of this package is to require it globally once:
 ``` js
-window.EventBus = require('vue.eventbus')
+window.EventBus = require('vue-eventbus2')
 ```
 
 Now use it in your application to fire and listen to events:
@@ -112,7 +112,7 @@ EventBus.getListenHistory(); // []
 
 Useful to be used within `beforeEach` or `afterEach` spec methods:
 ``` js
-window.EventBus = require('vue.eventbus')
+window.EventBus = require('vue-eventbus2')
 
 describe('My spec', () => {
 

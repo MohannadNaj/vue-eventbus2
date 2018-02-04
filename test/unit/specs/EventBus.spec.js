@@ -4,7 +4,7 @@ let vm;
 
 const log = (...args) => { console.log(...args); };
 
-describe('vue.eventbus', () => {
+describe('vue-eventbus2', () => {
   beforeEach(() => {
     vm = EventBus.fresh();
   });
