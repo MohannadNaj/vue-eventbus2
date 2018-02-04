@@ -17,8 +17,8 @@ export default class {
 
   get data() {
     return {
-      fireHistory: [],
-      listenHistory: [],
+      _fireHistory: [],
+      _listenHistory: [],
     };
   }
 
@@ -40,19 +40,19 @@ export default class {
       },
 
       recordFire(event, data = null) {
-        this.fireHistory.push(this.prepareEventRecord(event, data));
+        this._fireHistory.push(this.prepareEventRecord(event, data));
       },
 
       getFireHistory() {
         const result = [];
-        this.fireHistory.forEach((item) => {
+        this._fireHistory.forEach((item) => {
           result.push(Object.keys(item)[0]);
         });
         return result;
       },
 
       recordListen(event, data = null) {
-        this.listenHistory.push(this.prepareEventRecord(event, data));
+        this._listenHistory.push(this.prepareEventRecord(event, data));
       },
 
       prepareEventRecord(event, data) {
@@ -63,7 +63,7 @@ export default class {
 
       getListenHistory() {
         const result = [];
-        this.listenHistory.forEach((item) => {
+        this._listenHistory.forEach((item) => {
           result.push(Object.keys(item)[0]);
         });
         return result;
@@ -71,8 +71,8 @@ export default class {
 
       clearHistory() {
         this.$off();
-        this.listenHistory = [];
-        this.fireHistory = [];
+        this._listenHistory = [];
+        this._fireHistory = [];
       },
       expectEvent(eventName, eventStatus = 'Fire', expectPresent = true) {
           var expectedEvent = eventName
@@ -81,9 +81,9 @@ export default class {
             e => e == expectedEvent
           )
 
-          if (expectPresent) return this.expectEqual(expectedEvent, eventInHistory[0])
+          if (expectPresent) return this._expectEqual(expectedEvent, eventInHistory[0])
 
-          return this.expectEqual(eventInHistory, [])
+          return this._expectEqual(eventInHistory, [])
       },
       notExpectEvent(eventName, eventStatus = 'Fire') {
         return this.expectEvent(eventName, eventStatus, false)
@@ -91,7 +91,7 @@ export default class {
       expectListenEvent(eventName) {
         return this.expectEvent(eventName, 'Listen')
       },
-      expectEqual(actual, _expectation) {
+      _expectEqual(actual, _expectation) {
         if(expect == null)
           throw "can't find expect method"
 

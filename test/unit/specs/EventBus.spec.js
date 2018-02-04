@@ -13,13 +13,24 @@ describe('vue.eventbus', () => {
     expect(vm._isVue).toBeTruthy();
   });
 
+
+  it('passes the data from `fire` to `listen`', done => {
+
+    EventBus.listen('data', (data) => {
+      expect(data).toBe('my-data')
+      done()
+    })
+
+    EventBus.fire('data','my-data')
+  })
+
   it('can clear fire history', () => {
     vm.fire('test');
     vm.fire('test2');
 
     vm.clearHistory();
 
-    expect(vm.fireHistory.length).toBe(0);
+    expect(vm.getFireHistory().length).toBe(0);
   });
 
   it('fire method will trigger the right listened event', (done) => {
@@ -55,7 +66,7 @@ describe('vue.eventbus', () => {
 
     vm.clearHistory();
 
-    expect(vm.listenHistory.length).toBe(0);
+    expect(vm.getListenHistory().length).toBe(0);
   });
 
   it('can return array of listen history', () => {
@@ -79,13 +90,13 @@ describe('vue.eventbus', () => {
   });
 
   it('has working testing methods', done => {
-    jest.spyOn(EventBus, 'expectEqual')
+    jest.spyOn(EventBus, '_expectEqual')
     EventBus.listen('hi', () => {done()})
     EventBus.expectListenEvent('hi')
     EventBus.fire('hi2')
     EventBus.expectEvent('hi2')
 
-    expect(EventBus.expectEqual).toHaveBeenCalledTimes(2)
+    expect(EventBus._expectEqual).toHaveBeenCalledTimes(2)
     EventBus.fire('hi')
   })
 
