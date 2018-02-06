@@ -1,10 +1,8 @@
 export default class {
   constructor(VueInstance = null) {
-    if(VueInstance)
-      Vue = VueInstance
+    if (VueInstance) { Vue = VueInstance; }
 
-    if(! VueInstance && Vue == null)
-      var Vue = require('vue')
+    if (! VueInstance && Vue == null) { var Vue = require('vue'); }
 
     this.init(Vue);
     return this.vue;
@@ -75,33 +73,31 @@ export default class {
         this.fireHistory = [];
       },
       expectEvent(eventName, eventStatus = 'Fire', expectPresent = true) {
-          var expectedEvent = eventName
+        const expectedEvent = eventName;
 
-          var eventInHistory = this[`get${eventStatus}History`]().filter(
-            e => e == expectedEvent
-          )
+        const eventInHistory = this[`get${eventStatus}History`]().filter(
+          e => e == expectedEvent,
+        );
 
-          if (expectPresent) return this._expectEqual(expectedEvent, eventInHistory[0])
+        if (expectPresent) return this._expectEqual(expectedEvent, eventInHistory[0]);
 
-          return this._expectEqual(eventInHistory, [])
+        return this._expectEqual(eventInHistory, []);
       },
       notExpectEvent(eventName, eventStatus = 'Fire') {
-        return this.expectEvent(eventName, eventStatus, false)
+        return this.expectEvent(eventName, eventStatus, false);
       },
       expectListenEvent(eventName) {
-        return this.expectEvent(eventName, 'Listen')
+        return this.expectEvent(eventName, 'Listen');
       },
       _expectEqual(actual, _expectation) {
-        if(expect == null)
-          throw "can't find expect method"
+        if (expect == null) { throw "can't find expect method"; }
 
-        let expectFn = expect(actual)
+        const expectFn = expect(actual);
 
-        if(expectFn.to != null && expectFn.to.equal != null)
-          return expectFn.to.equal(_expectation)
+        if (expectFn.to != null && expectFn.to.equal != null) { return expectFn.to.equal(_expectation); }
 
-        expectFn.toEqual(_expectation)
-      }
+        expectFn.toEqual(_expectation);
+      },
     };
   }
 }

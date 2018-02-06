@@ -12,15 +12,14 @@ describe('vue-eventbus2', () => {
   });
 
 
-  it('passes the data from `fire` to `listen`', done => {
-
+  it('passes the data from `fire` to `listen`', (done) => {
     EventBus.listen('data', (data) => {
-      expect(data).toBe('my-data')
-      done()
-    })
+      expect(data).toBe('my-data');
+      done();
+    });
 
-    EventBus.fire('data','my-data')
-  })
+    EventBus.fire('data', 'my-data');
+  });
 
   it('can clear fire history', () => {
     vm.fire('test');
@@ -87,27 +86,26 @@ describe('vue-eventbus2', () => {
     expect(vm.getFireHistory().length).toBe(3);
   });
 
-  it('has working testing methods', done => {
-    jest.spyOn(EventBus, '_expectEqual')
-    EventBus.listen('hi', () => {done()})
-    EventBus.expectListenEvent('hi')
-    EventBus.fire('hi2')
-    EventBus.expectEvent('hi2')
+  it('has working testing methods', (done) => {
+    jest.spyOn(EventBus, '_expectEqual');
+    EventBus.listen('hi', () => { done(); });
+    EventBus.expectListenEvent('hi');
+    EventBus.fire('hi2');
+    EventBus.expectEvent('hi2');
 
-    expect(EventBus._expectEqual).toHaveBeenCalledTimes(2)
-    EventBus.fire('hi')
-  })
+    expect(EventBus._expectEqual).toHaveBeenCalledTimes(2);
+    EventBus.fire('hi');
+  });
 
-  it('testing methods looks for the appropriate matchers', done => {
-    let tmpExpect = expect;
-    let jestFn = jest.fn(done)
+  it('testing methods looks for the appropriate matchers', (done) => {
+    const tmpExpect = expect;
+    const jestFn = jest.fn(done);
 
-    expect = () => {return {to: {equal: jestFn}}}
-    EventBus.expectEvent('hi2')
+    expect = () => ({ to: { equal: jestFn } });
+    EventBus.expectEvent('hi2');
 
-    expect = tmpExpect    
+    expect = tmpExpect;
     expect(jestFn)
-    .toHaveBeenCalledTimes(1)
-
+      .toHaveBeenCalledTimes(1);
   });
 });
