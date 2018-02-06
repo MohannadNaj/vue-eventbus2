@@ -1,5 +1,15 @@
-const EventBus = require('./EventBus').default;
+let _eventBus, EventBus
 
-const eventBus = new EventBus();
+if(typeof window == "object" && typeof window.__VUE_EVENTBUS2 == "object")
+{
+    _eventBus = window.__VUE_EVENTBUS2
+} else {
+    EventBus = require('./EventBus').default;
 
-module.exports= eventBus;
+    _eventBus = new EventBus();
+
+    if(typeof window == "object")
+        window.__VUE_EVENTBUS2 = _eventBus
+}
+
+module.exports= _eventBus;

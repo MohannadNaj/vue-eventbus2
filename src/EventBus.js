@@ -17,8 +17,8 @@ export default class {
 
   get data() {
     return {
-      _fireHistory: [],
-      _listenHistory: [],
+      fireHistory: [],
+      listenHistory: [],
     };
   }
 
@@ -40,19 +40,19 @@ export default class {
       },
 
       recordFire(event, data = null) {
-        this._fireHistory.push(this.prepareEventRecord(event, data));
+        this.fireHistory.push(this.prepareEventRecord(event, data));
       },
 
       getFireHistory() {
         const result = [];
-        this._fireHistory.forEach((item) => {
+        this.fireHistory.forEach((item) => {
           result.push(Object.keys(item)[0]);
         });
         return result;
       },
 
       recordListen(event, data = null) {
-        this._listenHistory.push(this.prepareEventRecord(event, data));
+        this.listenHistory.push(this.prepareEventRecord(event, data));
       },
 
       prepareEventRecord(event, data) {
@@ -63,7 +63,7 @@ export default class {
 
       getListenHistory() {
         const result = [];
-        this._listenHistory.forEach((item) => {
+        this.listenHistory.forEach((item) => {
           result.push(Object.keys(item)[0]);
         });
         return result;
@@ -71,8 +71,8 @@ export default class {
 
       clearHistory() {
         this.$off();
-        this._listenHistory = [];
-        this._fireHistory = [];
+        this.listenHistory = [];
+        this.fireHistory = [];
       },
       expectEvent(eventName, eventStatus = 'Fire', expectPresent = true) {
           var expectedEvent = eventName

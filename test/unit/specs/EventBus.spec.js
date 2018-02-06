@@ -2,8 +2,6 @@ import EventBus from '@/main';
 
 let vm;
 
-const log = (...args) => { console.log(...args); };
-
 describe('vue-eventbus2', () => {
   beforeEach(() => {
     vm = EventBus.fresh();
