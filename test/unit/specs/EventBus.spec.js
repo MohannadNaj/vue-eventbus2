@@ -7,7 +7,7 @@ describe('vue-eventbus2', () => {
     vm = EventBus.fresh();
   });
 
-  it('instance of vue, dah!', () => {
+  it('is instance of vue, dah!', () => {
     expect(vm._isVue).toBeTruthy();
   });
 
@@ -31,6 +31,7 @@ describe('vue-eventbus2', () => {
   });
 
   it('fire method will trigger the right listened event', (done) => {
+    /* eslint-disable no-throw-literal */
     vm.listen('test', () => { throw "shouldn't be triggered!"; });
     vm.listen('test2', done);
 
@@ -42,6 +43,7 @@ describe('vue-eventbus2', () => {
     const listener1 = jest.fn();
     const listener2 = jest.fn(() => {
       expect(listener1).toHaveBeenCalled();
+      /* eslint-disable no-use-before-define */
       expect(listener3).not.toHaveBeenCalled();
     });
 

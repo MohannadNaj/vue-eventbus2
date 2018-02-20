@@ -1,14 +1,31 @@
-let _eventBus,
-  EventBus;
+let EventBusInstance;
+let windowObject = null;
 
-if (typeof window === 'object' && typeof window.__VUE_EVENTBUS2 === 'object') {
-  _eventBus = window.__VUE_EVENTBUS2;
+if (typeof window !== 'undefined') { windowObject = window; } else if (typeof global !== 'undefined') { windowObject = global; }
+
+if (windowObject != null && windowObject.__VUE_EVENTBUS2 != null) {
+  EventBusInstance = windowObject.__VUE_EVENTBUS2;
 } else {
-  EventBus = require('./EventBus').default;
+  const EventBus = require('./EventBus').default;
+  let VueInstance = null;
 
-  _eventBus = new EventBus();
+  if (windowObject != null && windowObject.Vue) {
+    VueInstance = windowObject.Vue;
+  }
+  if (!VueInstance) {
+    VueInstance = require('vue');
+    VueInstance.config.productionTip = false;
+    VueInstance = 'default' in VueInstance ? VueInstance.default : VueInstance;
 
-  if (typeof window === 'object') { window.__VUE_EVENTBUS2 = _eventBus; }
+    /* eslint-disable no-console */
+    console.warn('EventBus imported it\'s own version of Vue, this may cause loading of multiple instances of Vue, try to set `window.Vue` to the used vue instance before importing the EventBus.');
+  }
+
+  EventBusInstance = new EventBus(VueInstance);
+
+  if (windowObject != null) {
+    windowObject.__VUE_EVENTBUS2 = EventBusInstance;
+  }
 }
 
-module.exports = _eventBus;
+module.exports = EventBusInstance;

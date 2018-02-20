@@ -1,10 +1,6 @@
 export default class {
-  constructor(VueInstance = null) {
-    if (VueInstance) { Vue = VueInstance; }
-
-    if (! VueInstance && Vue == null) { var Vue = require('vue'); }
-
-    this.init(Vue);
+  constructor(VueInstance) {
+    this.init(VueInstance);
     return this.vue;
   }
 
@@ -76,7 +72,7 @@ export default class {
         const expectedEvent = eventName;
 
         const eventInHistory = this[`get${eventStatus}History`]().filter(
-          e => e == expectedEvent,
+          e => e === expectedEvent,
         );
 
         if (expectPresent) return this._expectEqual(expectedEvent, eventInHistory[0]);
@@ -90,13 +86,14 @@ export default class {
         return this.expectEvent(eventName, 'Listen');
       },
       _expectEqual(actual, _expectation) {
-        if (expect == null) { throw "can't find expect method"; }
+        if (expect === null) { throw "can't find expect method"; }
 
         const expectFn = expect(actual);
+        const chaiExpect = expectFn.to != null && expectFn.to.equal != null;
 
-        if (expectFn.to != null && expectFn.to.equal != null) { return expectFn.to.equal(_expectation); }
+        if (chaiExpect) { return expectFn.to.equal(_expectation); }
 
-        expectFn.toEqual(_expectation);
+        return expectFn.toEqual(_expectation);
       },
     };
   }
